@@ -33,15 +33,15 @@ jobs:
               uses: actions/setup-node@v5
               with:
                   node-version: "22" # 使用最新稳定版
-                  cache: "pnpm" # 加速依赖下载
+                  cache: "npm" # 🔥 关键修改：把 pnpm 改成 npm
 
-            # 安装项目依赖
+            # 安装项目依赖（现在用 npm 了）
             - name: Install dependencies
-              run: pnpm install
+              run: npm install
 
             # 打包生成网站（关键步骤）
             - name: Build
-              run: pnpm build
+              run: npm run build
 
             # 上传打包好的网站文件
             - name: Upload artifact
