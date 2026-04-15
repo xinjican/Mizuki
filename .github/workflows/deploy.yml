@@ -1,4 +1,4 @@
-# 工作流名称：部署到 GitHub Pages（最终稳定版）
+# 工作流名称：部署到 GitHub Pages（最终稳定 npm 版）
 name: Deploy to GitHub Pages
 
 on:
@@ -21,26 +21,22 @@ jobs:
               with:
                   submodules: true
 
-            # 使用最新版 Node.js 22（解决弃用警告）
+            # 直接使用最新 Node.js 22（不会有弃用警告）
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 22
-                  cache: "pnpm"
+                  cache: "npm" # 彻底关掉 pnpm，只用 npm
 
-            # 安装 pnpm
-            - name: Install pnpm
-              run: npm install -g pnpm
-
-            # 安装依赖
+            # 关键：用 npm 安装依赖（保证 GitHub 能跑！）
             - name: Install dependencies
-              run: pnpm install
+              run: npm install
 
-            # 构建
+            # 关键：用 npm 构建
             - name: Build
-              run: pnpm run build
+              run: npm run build
 
-            # 上传产物
+            # 上传 dist
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
