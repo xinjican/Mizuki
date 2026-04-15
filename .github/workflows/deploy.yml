@@ -1,35 +1,63 @@
+# 工作流名称：部署到 GitHub Pages
 name: Deploy to GitHub Pages
+
+# 触发条件：
+# 1. 推送到 main 分支时自动运行
+# 2. 支持手动点击运行
 on:
-    # 每次推送到 `main` 分支时触发这个“工作流程”
-    # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
     push:
         branches: [main]
-    # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
     workflow_dispatch:
-# 允许 job 克隆 repo 并创建一个 page deployment
+
+# 权限设置：必须这样写，否则无法部署
 permissions:
-    contents: read
-    pages: write
-    id-token: write
+    contents: read # 允许读取代码
+    pages: write # 允许写入 GitHub Pages
+    id-token: write # 身份验证（必须）
+
+# 任务开始
 jobs:
+    # 第一步：构建网站
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest # 在最新版 Ubuntu 系统上运行
         steps:
-            - name: Checkout your repository using git
-              uses: actions/checkout@v4
-            - name: Install, build, and upload your site
-              uses: withastro/action@v3
-              # with:
-              # path: . # 存储库中 Astro 项目的根位置。（可选）
-              # node-version: 20 # 用于构建站点的特定 Node.js 版本，默认为 20。（可选）
-              # package-manager: pnpm@latest # 应使用哪个 Node.js 包管理器来安装依赖项和构建站点。会根据存储库中的 lockfile 自动检测。（可选）
+            # 拉取你的代码
+            - name: Checkout
+              uses: actions/checkout@v5
+              with:
+                  submodules: true
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            # 安装 Node.js 环境
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "22" # 使用最新稳定版
+                  cache: "pnpm" # 加速依赖下载
+
+            # 安装项目依赖
+            - name: Install dependencies
+              run: pnpm install
+
+            # 打包生成网站（关键步骤）
+            - name: Build
+              run: pnpm build
+
+            # 上传打包好的网站文件
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v4
+              with:
+                  path: ./dist # 网站生成在 dist 文件夹
+
+    # 第二步：部署到 GitHub Pages
     deploy:
-        needs: build
+        needs: build # 等待 build 完成
         runs-on: ubuntu-latest
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
         steps:
+            # 正式部署
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
