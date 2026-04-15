@@ -19,33 +19,32 @@ jobs:
               with:
                   submodules: true
 
-            # 1. 安装 pnpm
+            # 🔥 关键：安装 pnpm
             - name: Setup pnpm
               uses: pnpm/action-setup@v2
               with:
                   version: latest
 
-            # 2. 安装 Node.js 20 (稳定版)
+            # 🔥 关键：强制升级到 Node.js 22 (最新稳定版)
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: 20
+                  node-version: 22.12.0 # 满足 Astro 最低要求！
                   cache: "pnpm"
 
-            # 3. 关键：安装依赖并强制安装 sharp，跳过构建失败
-            # 这里使用 --ignore-scripts 跳过 postinstall 脚本，避免编译失败
+            # 5. 安装依赖
             - name: Install dependencies
               run: pnpm install --shamefully-hoist
 
-            # 4. 强制替换 sharp 为预编译版本 (解决 Linux 编译报错)
+            # 6. 强制替换 sharp 为预编译版本 (解决 Linux 编译报错)
             - name: Fix sharp build
               run: pnpm install --os=linux --cpu=x64 sharp
 
-            # 5. 构建
+            # 7. 构建
             - name: Build
               run: pnpm run build
 
-            # 6. 上传
+            # 8. 上传
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
