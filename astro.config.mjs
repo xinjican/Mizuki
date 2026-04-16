@@ -42,7 +42,13 @@ export default defineConfig({
 	integrations: [
 		oddmisc({
 			umami: {
-				shareUrl: false,
+				shareUrl: (
+					<script
+						defer
+						src="https://cloud.umami.is/script.js"
+						data-website-id="f9a29af0-6733-4fb3-8430-c36ece35e724"
+					></script>
+				), // Umami 分享链接（见下方说明）如设置为 false 则禁用组件的umami访问量信息显示,不影响umami统计
 			},
 		}),
 		swup({
