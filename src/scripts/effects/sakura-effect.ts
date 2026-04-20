@@ -17,7 +17,7 @@ export class SakuraEffectHandler {
 	/**
 	 * 初始化 Sakura 特效
 	 */
-	init(widgetConfigs: any): void {
+	async init(widgetConfigs: any): Promise<void> {
 		const sakuraConfig = widgetConfigs?.sakura;
 		if (!sakuraConfig || !sakuraConfig.enable) {
 			return;
@@ -29,9 +29,13 @@ export class SakuraEffectHandler {
 		}
 
 		this.config = sakuraConfig;
-		initSakura(sakuraConfig);
-		this.initialized = true;
-		(window as any).sakuraInitialized = true;
+		try {
+			await initSakura(sakuraConfig);
+			this.initialized = true;
+			(window as any).sakuraInitialized = true;
+		} catch (error) {
+			console.error("Failed to initialize sakura effect:", error);
+		}
 	}
 
 	/**
@@ -65,9 +69,9 @@ export function getSakuraEffectHandler(): SakuraEffectHandler {
 /**
  * 初始化 Sakura 特效（便捷函数）
  */
-export function setupSakura(widgetConfigs: any): void {
+export async function setupSakura(widgetConfigs: any): Promise<void> {
 	const handler = getSakuraEffectHandler();
-	handler.init(widgetConfigs);
+	await handler.init(widgetConfigs);
 }
 
 /**
@@ -76,8 +80,12 @@ export function setupSakura(widgetConfigs: any): void {
 export function setupSakuraOnDOMReady(widgetConfigs: any): void {
 	const handler = getSakuraEffectHandler();
 
-	const init = () => {
-		handler.init(widgetConfigs);
+	const init = async () => {
+		try {
+			await handler.init(widgetConfigs);
+		} catch (error) {
+			console.error("Sakura effect initialization error:", error);
+		}
 	};
 
 	if (document.readyState === "loading") {

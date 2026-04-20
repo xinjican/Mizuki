@@ -376,13 +376,13 @@ export class SakuraManager {
 let globalSakuraManager: SakuraManager | null = null;
 
 // 初始化樱花特效
-export function initSakura(config: SakuraConfig): void {
+export async function initSakura(config: SakuraConfig): Promise<void> {
 	if (globalSakuraManager) {
 		globalSakuraManager.updateConfig(config);
 	} else {
 		globalSakuraManager = new SakuraManager(config);
 		if (config.enable) {
-			globalSakuraManager.init();
+			await globalSakuraManager.init();
 		}
 	}
 }
