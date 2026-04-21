@@ -27,7 +27,7 @@ const { device, index, viewDetailsText } = Astro.props;
 			>
 			</div>
 			<img
-				src={device.image}
+				src={`${import.meta.env.BASE_URL}${device.image.replace(/^\//, '')}`}
 				alt={device.name}
 				class="w-auto h-full max-h-full object-contain group-hover:scale-110 transition-all duration-500 drop-shadow-md relative z-10"
 				loading="lazy"

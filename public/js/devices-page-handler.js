@@ -29,10 +29,11 @@
 		state.eventListeners = [];
 	}
 
-	function createDeviceCardHTML(device, index, viewDetailsText) {
+	function createDeviceCardHTML(device, index, viewDetailsText, baseUrl) {
+		const imgSrc = (baseUrl || "/") + String(device.image ?? "").replace(/^\//, "");
 		const imgSection =
 			'<div class="relative p-6 pb-0"><div class="flex justify-center items-center h-48 bg-gradient-to-br from-[var(--card-bg)] to-[var(--btn-regular-bg)] rounded-lg overflow-hidden relative"><div class="absolute inset-0 bg-[var(--primary)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div><img src="' +
-			escapeHtml(device.image) +
+			escapeHtml(imgSrc) +
 			'" alt="' +
 			escapeHtml(device.name) +
 			'" class="w-auto h-full max-h-full object-contain group-hover:scale-110 transition-all duration-500 drop-shadow-md relative z-10" loading="lazy"></div></div>';
@@ -97,6 +98,7 @@
 							device,
 							index,
 							i18nData.viewDetails || "",
+							i18nData.baseUrl || "/",
 						),
 					)
 					.join("");
