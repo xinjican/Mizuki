@@ -14,24 +14,24 @@ export type DeviceCategory = Record<string, Device[]> & {
 };
 
 export const devicesData: DeviceCategory = {
-	OnePlus: [
+	Vivo: [
 		{
-			name: "OnePlus 13T",
-			image: "/images/device/oneplus13t.webp",
-			specs: "Gray / 16G + 1TB",
+			name: "vivo X200 Pro mini",
+			image: "/images/device/vivo X200 Pro mini.webp",
+			specs: "Light Purple / 16G + 512G",
 			description:
-				"Flagship performance, Hasselblad imaging, 80W SuperVOOC.",
-			link: "https://www.oneplus.com/cn/13t",
+				"Flagship performance, Zeiss optics, 90W FlashCharge.",
+			link: "https://www.vivo.com.cn/vivo/x200promini/",
 		},
 	],
-	Router: [
+	Lenovo: [
 		{
-			name: "GL-MT3000",
-			image: "/images/device/mt3000.webp",
-			specs: "1000Mbps / 2.5G",
+			name: "ThinkBook 14 Gen 4 Intel",
+			image: "/images/device/thinkbook14gen4intel.webp",
+			specs: "Mineral Grey  / 16G + 512G",
 			description:
-				"Portable WiFi 6 router suitable for business trips and home use.",
-			link: "https://www.gl-inet.cn/products/gl-mt3000/",
+				"Dual-tone elegance, 12th Gen Intel power, versatile connectivity.",
+			link: "https://www.lenovo.com.cn/thinkbook/thinkbook-14-gen-4-intel/",
 		},
 	],
 };
