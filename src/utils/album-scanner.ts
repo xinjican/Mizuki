@@ -2,6 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import type { AlbumGroup, Photo } from "../types/album";
+import { url } from "./url-utils";
 
 export async function scanAlbums(): Promise<AlbumGroup[]> {
 	const albumsDir = path.join(process.cwd(), "public/images/albums");
@@ -80,8 +81,8 @@ async function processAlbumFolder(
 		}
 
 		cover = hasWebpCover
-			? `/images/albums/${folderName}/cover.webp`
-			: `/images/albums/${folderName}/cover.jpg`;
+			? url(`/images/albums/${folderName}/cover.webp`)
+			: url(`/images/albums/${folderName}/cover.jpg`);
 		photos = scanPhotos(folderPath, folderName);
 	}
 
@@ -148,8 +149,8 @@ function scanPhotos(folderPath: string, albumId: string): Photo[] {
 		const { baseName, tags } = parseFileName(file);
 
 		const src = fileWebpMap.has(file)
-			? `/images/albums/${albumId}/${fileWebpMap.get(file)}`
-			: `/images/albums/${albumId}/${file}`;
+			? url(`/images/albums/${albumId}/${fileWebpMap.get(file)}`)
+			: url(`/images/albums/${albumId}/${file}`);
 
 		photos.push({
 			id: `${albumId}-photo-${index}`,
