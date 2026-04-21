@@ -8,8 +8,13 @@ import type { AlbumCardProps } from "./types";
 const { album } = Astro.props as AlbumCardProps;
 ---
 
+
+---
+import { url } from "../../utils/url-utils";
+---
+
 <a
-	href={`/albums/${album.id}/`}
+	href={url(`/albums/${album.id}/`)}
 	data-tags={album.tags?.join(",") || ""}
 	class="album-card group relative block overflow-hidden rounded-xl transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
 >
