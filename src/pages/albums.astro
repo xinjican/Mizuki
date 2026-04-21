@@ -95,6 +95,56 @@ const subtitle = i18n(I18nKey.albumsSubtitle);
 			}
 		</div>
 	</div>
+
+	<script is:inline>
+		(() => {
+			const baseUrl = import.meta.env.BASE_URL || "/";
+			const normalizedBase = baseUrl.endsWith("/")
+				? baseUrl
+				: `${baseUrl}/`;
+
+			const fixAlbumLink = (anchor) => {
+				const href = anchor.getAttribute("href");
+				if (!href || !href.startsWith("/albums/")) {
+					return;
+				}
+
+				anchor.setAttribute(
+					"href",
+					`${normalizedBase}${href.replace(/^\//, "")}`,
+				);
+			};
+
+			const fixAlbumLinks = () => {
+				document
+					.querySelectorAll("#albums-grid a.album-card")
+					.forEach((anchor) => {
+						fixAlbumLink(anchor);
+					});
+			};
+
+			fixAlbumLinks();
+			document.addEventListener("swup:page:view", fixAlbumLinks);
+
+			document.addEventListener(
+				"click",
+				(event) => {
+					const target = event.target;
+					if (!(target instanceof Element)) {
+						return;
+					}
+
+					const anchor = target.closest("#albums-grid a.album-card");
+					if (!anchor) {
+						return;
+					}
+
+					fixAlbumLink(anchor);
+				},
+				true,
+			);
+		})();
+	</script>
 </MainGridLayout>
 
 <style is:global>
