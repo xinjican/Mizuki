@@ -195,7 +195,7 @@ if (siteConfig.font) {
 		{
 			pioConfig.enable && (
 				<Fragment
-					set:html={`<link rel="stylesheet" href="/pio/static/pio.css" media="print" onload="this.media='all'" />`}
+					set:html={`<link rel="stylesheet" href="${import.meta.env.BASE_URL}pio/static/pio.css" media="print" onload="this.media='all'" />`}
 				/>
 			)
 		}

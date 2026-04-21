@@ -50,8 +50,9 @@
 		{#if !isEmpty}
 			{#each posts as post (post.id)}
 				{@const isCurrentPost = post.id === currentPostId}
+				{@const postUrl = `${import.meta.env.BASE_URL}posts/${post.id}/`}
 				<a
-					href="/posts/{post.id}/"
+					href={postUrl}
 					class={getContainerClass(isCurrentPost)}
 				>
 					<span class={getTitleClass(isCurrentPost)}
