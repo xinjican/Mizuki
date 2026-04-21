@@ -210,12 +210,7 @@ export class SakuraManager {
 
 		// 创建图片对象
 		this.img = new Image();
-		// 从当前 URL 动态获取基础路径
-		const currentPath = window.location.pathname;
-		const basePath = currentPath.includes('/Mizuki/') ? '/Mizuki/' : '/';
-		this.img.src = `${basePath}sakura.webp`;
-
-		// 等待图片加载完成
+			this.img.src = `${import.meta.env.BASE_URL}sakura.webp`;
 		await new Promise<void>((resolve, reject) => {
 			if (this.img) {
 				this.img.onload = () => resolve();
