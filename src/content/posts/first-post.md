@@ -2,6 +2,7 @@
 title: 我的第一篇 Mizuki 博客
 date: 2026-04-15
 tags: ["日常", "技术"]
+category: 日常
 published: 2026-04-15  # 改成发布日期！必填，类型是日期
 draft: false
 ---
