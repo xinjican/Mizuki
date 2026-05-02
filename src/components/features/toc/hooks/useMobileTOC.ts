@@ -123,8 +123,13 @@ export function generatePostItems(): PostItem[] {
  * 检查是否为首页
  */
 export function checkIsHomePage(): boolean {
-	const pathname = window.location.pathname;
-	return pathname === "/" || pathname === "" || /^\/\d+\/?$/.test(pathname);
+	const pathname = window.location.pathname.replace(/\/$/, "");
+	const base = import.meta.env.BASE_URL.replace(/\/$/, ""); // e.g. "" or "/Mizuki"
+	if (pathname === base || pathname === "") return true;
+	// 分页页面（如 /2/, /Mizuki/2/）也属于首页
+	return new RegExp(
+		`^${base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\/\\d+$`,
+	).test(pathname);
 }
 
 /**
