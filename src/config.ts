@@ -112,7 +112,7 @@ export const siteConfig: SiteConfig = {
 	// 壁纸模式配置
 	wallpaperMode: {
 		// 默认壁纸模式：banner=顶部横幅，fullscreen=全屏壁纸，none=无壁纸
-		defaultMode: "fullscreen",
+		defaultMode: "banner",
 		// 整体布局方案切换按钮显示设置（默认："desktop"）
 		// "off" = 不显示
 		// "mobile" = 仅在移动端显示
@@ -130,6 +130,7 @@ export const siteConfig: SiteConfig = {
 				"/assets/desktop-banner/S3.webp",
 				"/assets/desktop-banner/S4.webp",
 				"/assets/desktop-banner/S5.webp",
+				"/assets/desktop-banner/S6.webp",
 			], // 桌面横幅图片
 			mobile: [
 				"/assets/mobile-banner/1.webp",
