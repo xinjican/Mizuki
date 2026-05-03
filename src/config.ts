@@ -250,6 +250,7 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 			"/assets/desktop-banner/S2.webp",
 			"/assets/desktop-banner/S3.webp",
 			"/assets/desktop-banner/S4.webp",
+			"/assets/desktop-banner/S5.webp",
 		], // 桌面横幅图片
 		mobile: [
 			"/assets/mobile-banner/1.webp",
