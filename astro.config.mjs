@@ -31,10 +31,15 @@ import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkFixGithubAdmonitions } from "./src/plugins/remark-fix-github-admonitions.js";
 import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 
+// 自动切换 base 路径，兼容 Cloudflare Pages 和 GitHub Pages
+const isCloudflare = process.env.CF_PAGES === "1";
+const isGithub = process.env.GITHUB_PAGES === "true";
+const basePath = isCloudflare ? "/" : isGithub ? "/Mizuki/" : "/Mizuki/";
+
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.siteURL,
-	base: "/Mizuki/",
+	base: basePath,
 	trailingSlash: "always",
 
 	output: "static",
