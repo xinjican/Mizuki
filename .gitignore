@@ -53,3 +53,7 @@ src/data/bilibili-data.json
 
 # Lighthouse CI
 .lighthouseci/
+
+# AI Assistant Instructions
+CLAUDE.md
+GEMINI.md
